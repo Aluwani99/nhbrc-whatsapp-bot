@@ -124,7 +124,9 @@ test('help topic titles and choices fit every supported language', async () => {
     const from = `test:help-${language}`;
     resetSession(from);
     const menu = await handleMessage(from, { id: `lang_${language}` });
-    assert.ok(menu[1].rows.some((row) => row.id === 'topic_help'));
+    const helpRow = menu[1].rows.find((row) => row.id === 'topic_help');
+    assert.ok(helpRow);
+    if (language === 'en') assert.equal(helpRow.title, 'Help & FAQ');
 
     const guide = await handleMessage(from, { id: 'topic_help' });
     assert.equal(guide[0].type, 'list');

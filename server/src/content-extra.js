@@ -29,7 +29,7 @@ export const EXTRA = {
     rows: {
       national: ['National / Head Office', 'Toll-free, head office, ethics line'],
       status: ['Check certificate', 'Is your registration valid or expired?'],
-      help: ['Help & questions', 'Browse NHBRC topics or ask a question'],
+      help: ['Help & FAQ', 'Browse FAQs or ask a question'],
       fees: ['Fees and costs', 'Where to check current NHBRC fees'],
     },
   },
