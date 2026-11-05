@@ -8,7 +8,7 @@ import { lookupRegistration, isValidFormat, cleanNumber } from './status.js';
 const sessions = new Map();
 export const resetSession = (id) => sessions.delete(id);
 
-const GREETING = /^(hi|hii+|hello|hey|heita|hallo|start|sawubona|molo|dumela|thobela|ndaa|aa|haai)\b/i;
+const GREETING = /^(hi|hii+|hello|hey|heita|hallo|start|sawubona|molo|dumela|thobela|ndaa|aa|haai)\s*[.!?]*$/i;
 const MENU_WORD = /^(menu|imenyu|menyu)$/i;
 
 const LANG_ALIASES = {
@@ -160,6 +160,11 @@ export async function handleMessage(from, { text = '', id = '' }) {
   if (id.startsWith('lang_') && LANGS[id.slice(5)]) {
     s.lang = id.slice(5);
     s.awaiting = null;
+    const pendingInput = s.pendingInput;
+    s.pendingInput = null;
+    if (pendingInput) {
+      return [{ type: 'text', body: LANGS[s.lang].langSet }, ...await handleMessage(from, { text: pendingInput })];
+    }
     return [{ type: 'text', body: LANGS[s.lang].langSet }, mainMenu(s.lang)];
   }
 
@@ -179,10 +184,18 @@ export async function handleMessage(from, { text = '', id = '' }) {
   if (typedLang) {
     s.lang = typedLang;
     s.awaiting = null;
+    const pendingInput = s.pendingInput;
+    s.pendingInput = null;
+    if (pendingInput) {
+      return [{ type: 'text', body: LANGS[typedLang].langSet }, ...await handleMessage(from, { text: pendingInput })];
+    }
     return [{ type: 'text', body: LANGS[typedLang].langSet }, mainMenu(typedLang)];
   }
 
-  // 4. "hi" (or no language chosen yet) -> always show the language options
+  // Keep the first real question while language is being selected.
+  if (!s.lang && input && !GREETING.test(input) && !s.pendingInput) s.pendingInput = input;
+
+  // 4. A greeting or no language chosen yet -> show the language options
   if (GREETING.test(input) || !s.lang) {
     s.awaiting = null;
     return [languageList()];
