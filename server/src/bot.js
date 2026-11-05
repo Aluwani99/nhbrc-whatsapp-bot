@@ -10,6 +10,7 @@ export const resetSession = (id) => sessions.delete(id);
 
 const GREETING = /^(hi|hii+|hello|hey|heita|hallo|start|sawubona|molo|dumela|thobela|ndaa|aa|haai)\s*[.!?]*$/i;
 const MENU_WORD = /^(menu|imenyu|menyu)$/i;
+const HELP_WORD = /^(help|faq|options|what can you help me with|what can i ask(?: you)?)[?.!]*$/i;
 
 const LANG_ALIASES = {
   en: /^(en|english)$/i,
@@ -22,14 +23,15 @@ const LANG_ALIASES = {
 
 // Light keyword routing for typed questions (English + a few local words). Order matters.
 const INTENTS = [
-  ['renew', /renew|vuselela|hlaziya|mpshafatša|ntlafatsa|vusulusa/i],
-  ['status', /status|expired|expiry|valid|certificate|check my/i],
-  ['enrol', /enrol|warranty|new home|ngwadiša ntlo/i],
-  ['register', /regist|ngwadiša|bhalisa|ngodisa|ṅwalisa/i],
-  ['technical', /technical|defect|inspect|crack|leak|geotech|engineer/i],
+  ['fees', /\b(?:fee|fees|cost|costs|price|prices|charges)\b|how much does .*(?:cost|charge)/i],
+  ['renew', /how long.{0,30}registration|registration.{0,30}(?:last|valid for|expire)|registration period|renew|renewal|vuselela|hlaziya|mpshafatša|ntlafatsa|vusulusa/i],
+  ['status', /registration status|certificate status|expired|expiry|valid|check my status|check (?:my )?(?:registration|certificate)|is my (?:registration|certificate)/i],
+  ['enrol', /enrol|warranty|new home|new house|before (?:i )?start building|how many days.{0,20}(?:build|construction)|ngwadiša ntlo/i],
+  ['register', /regist|home.?builder|builder registration|ngwadiša|bhalisa|ngodisa|ṅwalisa/i],
+  ['technical', /technical|defect|complaint|complain|report(?:ing)?|dispute|inspect|crack|leak|geotech|engineer/i],
   ['contact', /contact|phone|call|number|email|address|office|hotline|hours|xhumana/i],
-  ['services', /service|what do you do|what does nhbrc do/i],
-  ['about', /what is|about|who are|nhbrc\??$/i],
+  ['services', /service|what do you do|what does nhbrc do|what does the nhbrc do/i],
+  ['about', /what is|about|who are|who is nhbrc|what does nhbrc stand for|nhbrc\??$/i],
 ];
 
 const fill = (str, extra = {}) =>
@@ -66,6 +68,22 @@ function mainMenu(code) {
       id: `topic_${t}`,
       title: L.rows[t][0],
       description: L.rows[t][1],
+    })),
+  };
+}
+
+function helpMenu(code) {
+  const L = LANGS[code];
+  return {
+    type: 'list',
+    header: 'NHBRC 🏠',
+    body: L.helpBody,
+    button: L.helpButton,
+    sectionTitle: L.helpButton,
+    rows: [...TOPICS.filter((topic) => topic !== 'help'), 'status', 'fees'].map((topic) => ({
+      id: `topic_${topic}`,
+      title: L.rows[topic][0],
+      description: L.rows[topic][1],
     })),
   };
 }
@@ -115,9 +133,25 @@ function answer(code, topic) {
   ];
   if (topic === 'register' || topic === 'renew') buttons = [{ id: 'topic_status', title: L.btnStatus }, buttons[0], buttons[1]];
   if (topic === 'contact') buttons = [{ id: 'topic_contact', title: L.btnOther }, buttons[0]];
+  if (topic === 'technical') buttons = [{ id: 'topic_contact', title: L.btnContact }, buttons[0], buttons[1]];
   return [
     { type: 'text', body: fill(L.answers[topic] + '\n\n' + L.note) },
     { type: 'buttons', body: L.more, buttons },
+  ];
+}
+
+function feesAnswer(code) {
+  const L = LANGS[code];
+  return [
+    { type: 'text', body: fill(L.feesInfo) },
+    {
+      type: 'buttons',
+      body: L.more,
+      buttons: [
+        { id: 'topic_contact', title: L.btnContact },
+        { id: 'topic_menu', title: L.btnMenu },
+      ],
+    },
   ];
 }
 
@@ -196,7 +230,11 @@ export async function handleMessage(from, { text = '', id = '' }) {
   if (!s.lang && input && !GREETING.test(input) && !s.pendingInput) s.pendingInput = input;
 
   // 4. A greeting or no language chosen yet -> show the language options
-  if (GREETING.test(input) || !s.lang) {
+  if (GREETING.test(input) && s.lang) {
+    s.awaiting = null;
+    return [{ type: 'text', body: LANGS[s.lang].greeting }, helpMenu(s.lang)];
+  }
+  if (!s.lang) {
     s.awaiting = null;
     return [languageList()];
   }
@@ -205,6 +243,8 @@ export async function handleMessage(from, { text = '', id = '' }) {
   if (id) s.awaiting = null;
   if (id === 'topic_language') return [languageList()];
   if (id === 'topic_menu' || MENU_WORD.test(input)) return [mainMenu(s.lang)];
+  if (id === 'topic_help' || HELP_WORD.test(input)) return [helpMenu(s.lang)];
+  if (id === 'topic_fees') return feesAnswer(s.lang);
   if (id === 'topic_status') return askStatus(s);
   if (id === 'topic_contact') return [provinceList(s.lang)];
   if (id === 'prov_national') return answer(s.lang, 'contact');
@@ -217,6 +257,7 @@ export async function handleMessage(from, { text = '', id = '' }) {
   // 6. Typed question -> keyword match
   const hit = INTENTS.find(([, re]) => re.test(input));
   if (hit) {
+    if (hit[0] === 'fees') return feesAnswer(s.lang);
     if (hit[0] === 'status') return askStatus(s);
     if (hit[0] === 'contact') return [provinceList(s.lang)];
     return answer(s.lang, hit[0]);

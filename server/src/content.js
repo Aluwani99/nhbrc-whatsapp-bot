@@ -5,7 +5,7 @@
 // Placeholders filled at runtime from .env: {phone} {web} {address} {ethics}
 // WhatsApp limits: list row title 24 chars, row description 72, list button 20, reply button 20.
 
-export const TOPICS = ['about', 'services', 'register', 'renew', 'enrol', 'technical', 'contact'];
+export const TOPICS = ['about', 'services', 'register', 'renew', 'enrol', 'technical', 'contact', 'help'];
 export const LANG_ORDER = ['en', 'zu', 've', 'nso', 'xh', 'st'];
 
 export const LANGS = {

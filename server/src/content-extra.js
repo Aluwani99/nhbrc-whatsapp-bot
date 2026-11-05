@@ -4,6 +4,12 @@
 
 export const EXTRA = {
   en: {
+    greeting: 'Hello! 👋 I can help with NHBRC registration, enrolling a home, warranty cover, complaints and office contacts.',
+    helpBody: 'Choose a topic below, or type your question in your own words.',
+    helpButton: 'Choose a topic',
+    btnContact: 'Contact NHBRC',
+    feesInfo: 'NHBRC fees can vary by service and may change. To avoid giving you an outdated amount, check the latest information at {web} or contact your provincial office.',
+    feesDescription: 'Where to check current NHBRC fees',
     contactPick: 'Which province are you in? Choose one to see the office address, phone number and opening hours.',
     contactButton: 'Choose province',
     btnOther: 'Other province',
@@ -23,10 +29,18 @@ export const EXTRA = {
     rows: {
       national: ['National / Head Office', 'Toll-free, head office, ethics line'],
       status: ['Check certificate', 'Is your registration valid or expired?'],
+      help: ['Help & questions', 'Browse NHBRC topics or ask a question'],
+      fees: ['Fees and costs', 'Where to check current NHBRC fees'],
     },
   },
 
   zu: {
+    greeting: 'Sawubona! 👋 Ngingakusiza ngokubhaliswa kwe-NHBRC, ukubhalisa indlu, iwaranti, izikhalazo namahhovisi.',
+    helpBody: 'Khetha isihloko ngezansi, noma ubhale umbuzo wakho ngamazwi akho.',
+    helpButton: 'Khetha isihloko',
+    btnContact: 'Xhumana ne-NHBRC',
+    feesInfo: 'Izindleko ze-NHBRC zingahluka ngesevisi futhi zingashintsha. Ukuze ngingakuniki inani elidala, hlola ulwazi lwakamuva ku-{web} noma uthinte ihhovisi lesifundazwe sakho.',
+    feesDescription: 'Lapho ungathola khona izindleko zamanje',
     contactPick: 'Uhlala kuyiphi ifundazwe? Khetha ukubona ikheli lehhovisi, inombolo yocingo namahora okusebenza.',
     contactButton: 'Khetha ifundazwe',
     btnOther: 'Enye ifundazwe',
@@ -46,10 +60,18 @@ export const EXTRA = {
     rows: {
       national: ['Kuzwelonke / Ikomkhulu', 'Mahhala, ihhovisi eliyinhloko'],
       status: ['Hlola isitifiketi', 'Ukubhaliswa kusebenza noma kuphelelwe?'],
+      help: ['Usizo nemibuzo', 'Bheka izihloko noma ubuze umbuzo'],
+      fees: ['Izindleko nezimali', 'Lapho ungathola khona izindleko zamanje'],
     },
   },
 
   ve: {
+    greeting: 'Ndaa! 👋 Ndi nga ni thusa nga u ṅwaliswa ha NHBRC, u ṅwaliswa ha nndu, warranty, mbilaelo na dzi-ofisi.',
+    helpBody: 'Nangulani thero afho fhasi, kana ni ṅwale mbudziso yaṋu.',
+    helpButton: 'Nangulani thero',
+    btnContact: 'Kwamani NHBRC',
+    feesInfo: 'Mitengo ya NHBRC i nga fhambana u ya nga tshumelo nahone ya shanduka. U itela u sa ni fha mutengo wa kale, sedzani mafhungo a zwino kha {web} kana ni kwame wofisi ya vunḓu.',
+    feesDescription: 'Nḓila ya u wana mitengo ya zwino ya NHBRC',
     contactPick: 'Ni dzula kha vunḓu ifhio? Nanguli u vhona aderese ya wofisi, nomboro ya mbingano na tshifhinga tsha u shuma.',
     contactButton: 'Nanguli vunḓu',
     btnOther: 'Vunḓu ḽiṅwe',
@@ -69,10 +91,18 @@ export const EXTRA = {
     rows: {
       national: ['Lushaka / Head Office', 'Mahala, wofisi khulwane'],
       status: ['Vhonani setifikhethi', 'U ṅwaliswa ho shuma kana ho fhela?'],
+      help: ['Thuso na mbudziso', 'Nangulani thero kana ni vhudzise'],
+      fees: ['Mitengo na mbadelo', 'Mitengo ya zwino ya NHBRC'],
     },
   },
 
   nso: {
+    greeting: 'Thobela! 👋 Nka go thuša ka ngwadišo ya NHBRC, go ngwadiša ntlo, warranty, dingongorego le diofisi.',
+    helpBody: 'Kgetha sehlogo ka tlase, goba o ngwale potšišo ya gago ka mantšu a gago.',
+    helpButton: 'Kgetha sehlogo',
+    btnContact: 'Ikopanye le NHBRC',
+    feesInfo: 'Ditefelo tša NHBRC di ka fapana go ya ka tirelo gomme di ka fetoga. Gore ke se go fe palo ya kgale, hlahloba tshedimošo ya bjale go {web} goba o ikgokaganye le ofisi ya profense ya gago.',
+    feesDescription: 'Moo o ka hwetšago ditefelo tša bjale tša NHBRC',
     contactPick: 'O dula profenseng efe? Kgetha go bona aterese ya ofisi, nomoro ya mogala le dinako tša go šoma.',
     contactButton: 'Kgetha profense',
     btnOther: 'Profense e nngwe',
@@ -92,10 +122,18 @@ export const EXTRA = {
     rows: {
       national: ['Naga / Head Office', 'Mahala, ofisi ye kgolo'],
       status: ['Lekola setifikeiti', 'Ngwadišo e šoma goba e fedile?'],
+      help: ['Thušo le dipotšišo', 'Kgetha sehlogo goba o botšiše'],
+      fees: ['Ditefelo tša NHBRC', 'Ditefelo tša bjale tša NHBRC'],
     },
   },
 
   xh: {
+    greeting: 'Molo! 👋 Ndingakunceda ngobhaliso lwe-NHBRC, ukubhalisa indlu, iwaranti, izikhalazo neeofisi.',
+    helpBody: 'Khetha isihloko ngezantsi, okanye ubhale umbuzo wakho.',
+    helpButton: 'Khetha isihloko',
+    btnContact: 'Nxibelelana ne-NHBRC',
+    feesInfo: 'Iintlawulo ze-NHBRC zinokwahluka ngokuxhomekeke kwinkonzo kwaye zingatshintsha. Ukuze ndingakuniki imali ephelelwe lixesha, jonga ulwazi lwangoku ku-{web} okanye uqhagamshelane neofisi yephondo lakho.',
+    feesDescription: 'Apho ungajonga khona iintlawulo ze-NHBRC zangoku',
     contactPick: 'Uhlala kweyiphi iphondo? Khetha ukubona idilesi yeofisi, inombolo yefowuni neeyure zokusebenza.',
     contactButton: 'Khetha iphondo',
     btnOther: 'Elinye iphondo',
@@ -115,10 +153,18 @@ export const EXTRA = {
     rows: {
       national: ['Likazwelonke / Intloko', 'Simahla, iofisi enkulu'],
       status: ['Khangela isatifikethi', 'Ubhaliso lusebenza okanye lugqityiwe?'],
+      help: ['Uncedo nemibuzo', 'Khetha isihloko okanye ubuze'],
+      fees: ['Iintlawulo neendleko', 'Jonga iintlawulo ze-NHBRC zangoku'],
     },
   },
 
   st: {
+    greeting: 'Dumela! 👋 Nka o thusa ka ngodiso ya NHBRC, ho ngodisa ntlo, warranty, dingongorego le diofisi.',
+    helpBody: 'Kgetha sehlooho ka tlase, kapa o ngole potso ya hao ka mantswe a hao.',
+    helpButton: 'Kgetha sehlooho',
+    btnContact: 'Ikopanye le NHBRC',
+    feesInfo: 'Ditefiso tsa NHBRC di ka fapana ho ya ka tshebeletso mme di ka fetoha. Hore ke se ke ka o fa tjhelete ya kgale, sheba tlhahisoleseding ya moraorao ho {web} kapa o ikopanye le ofisi ya profinse ya heno.',
+    feesDescription: 'Moo o ka fumanang ditefiso tsa hajwale tsa NHBRC',
     contactPick: 'O dula profinseng efe? Kgetha ho bona aterese ya ofisi, nomoro ya mohala le dinako tsa ho sebetsa.',
     contactButton: 'Kgetha profinse',
     btnOther: 'Profinse e nngwe',
@@ -138,6 +184,8 @@ export const EXTRA = {
     rows: {
       national: ['Naha / Head Office', 'Mahala, ofisi e kgolo'],
       status: ['Hlahloba setifikeiti', 'Ngodiso e sebetsa kapa e felletse?'],
+      help: ['Thuso le dipotso', 'Kgetha sehlooho kapa o botse'],
+      fees: ['Ditefiso le ditjeo', 'Ditefiso tsa hajwale tsa NHBRC'],
     },
   },
 };
